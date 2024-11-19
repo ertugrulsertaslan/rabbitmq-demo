@@ -6,8 +6,8 @@ This project demonstrates how to use RabbitMQ's **Fanout Exchange** to send and 
 
 Learn more through these tutorials:
 
-- [Getting Started with RabbitMQ](tutorial/tutorial1.md)
-- [Advanced RabbitMQ Concepts](tutorial/tutorial2.md)
+- [Getting Started with RabbitMQ](tutorials/tutorial1.md)
+- [Advanced RabbitMQ Concepts](tutorials/tutorial2.md)
 
 ## Features ✨
 
