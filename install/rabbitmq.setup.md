@@ -14,3 +14,9 @@ Clone this repository to your local machine:
 git clone https://github.com/your-username/rabbitmq-demo-project.git
 cd rabbitmq-demo-project
 ```
+
+And
+
+```bash
+ npm install
+```

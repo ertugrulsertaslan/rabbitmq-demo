@@ -8,10 +8,33 @@ async function sendMessage(routingKey, message) {
   try {
     const connection = await amqp.connect("amqp://localhost"); // Connect to RabbitMQ
     const channel = await connection.createChannel(); // Create channel
-    await channel.assertExchange(exchange, type, { durable: false }); // Exchange Defined
+
+    // Exchange Defined
+    await channel.assertExchange(exchange, type, { durable: false });
+
+    /*
+      const exchange = 'direct_logs';
+      const routingKey = 'error';
+      const message = 'Error log message';
+      channel.publish(exchange, routingKey, Buffer.from(message)); Direct type 
+
+      const exchange = 'logs';
+      const message = 'Broadcast message';
+      channel.publish(exchange, '', Buffer.from(message)); Fanout type (routing key null)
+
+      const exchange = 'topic_logs';
+      const routingKey = 'logs.error';
+      const message = 'Error log with topic';
+      channel.publish(exchange, routingKey, Buffer.from(message)); Topic type 
+
+      const exchange = 'headers_logs';
+      const message = 'Document with headers';
+      const headers = { type: 'pdf', format: 'A4' };
+      channel.publish(exchange, '', Buffer.from(message), { headers }); Headers type
+    */
 
     // Send message
-    channel.publish(exchange, routingKey, Buffer.from(message));
+    channel.publish(exchange, routingKey, Buffer.from(message)); // Direct type
 
     console.log(` [x] Sent: ${message} with routing key: ${routingKey}`);
 
@@ -32,7 +55,14 @@ async function receiveMessages(routingKey) {
 
     // Creating a temporary queue and connected to the exchange
     const q = await channel.assertQueue("", { exclusive: true });
-    channel.bindQueue(q.queue, exchange, routingKey);
+
+    /*
+      channel.bindQueue(q.queue, exchange, routingKey); Direct type
+      channel.bindQueue(q.queue, exchange, ''); // Fanout (routing key is not used)
+      channel.bindQueue(q.queue, exchange, routingKey); // Topic type
+      channel.bindQueue(q.queue, exchange, '', { type: 'pdf', format: 'A4' }); // Headers type
+    */
+    channel.bindQueue(q.queue, exchange, routingKey); // Direct type
 
     console.log(` [*] Waiting for logs with routing key: ${routingKey}`);
 
