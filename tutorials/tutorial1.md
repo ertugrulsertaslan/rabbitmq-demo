@@ -8,7 +8,7 @@ In this tutorial, we will cover the basics of RabbitMQ. You will learn:
 
 ## Step 1: Install RabbitMQ
 
-Follow the [installation guide](../install/rabbitmq-setup.md) to get RabbitMQ running.
+Follow the [installation guide](../install/rabbitmqSetup.md) to get RabbitMQ running.
 
 ## Step 2: Send Messages
 
